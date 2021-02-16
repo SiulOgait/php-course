@@ -23,28 +23,36 @@
         foreach($products as $key => $value){
           echo "<p>The ".$key." costs ".$value."</p>";
         }
-
-        echo "<h2>Items you can afford</h2>";
-
-    foreach($products as $key => $value){
-      if($value <= $credit ){
-        echo "<p>".$key."</p>"; 
-      }
-    }
-
-    $amount=800;
-    $taxRate=0.08255599;
-    $addedTax= $amount*$taxRate;  //amount = 800, tax = .0825
-    echo "<p> Tax added ".$addedTax."! Rounded tax is: ".round($addedTax, 2)."</p>";
-      
-      function tax_calc($amount,$tax){
-      $calculate_tax = $amount*$tax;
-      $amount = round($amount+$calculate_tax,3);
-      return $amount; 	
-    }
     
-     echo tax_calc(750,0.223); 
-     // When you refresh your page you should a value at the bottom of the screen.
+    	echo "<h2>Items you can afford pre tax</h2>";
+
+	foreach($products as $key => $value){
+	  if($value <= $credit ){
+	  	echo "<p>".$key." without tax</p>"; 
+	  }
+	}
+
+      $taxRate=0.0825;
+
+      function tax_calc($amount,$tax){
+	    	$addedTax = $amount*$tax;
+	    	$amountWithTax = round($amount+$addedTax,2);
+	    	return $amountWithTax;
+    	}
+
+	    foreach($products as $key => $value){
+	    	$costWithTax = tax_calc($value,$taxRate);
+		    echo "<p>The ".$key." costs ".$costWithTax." with tax</p>";
+	    }
+
+	    echo "<h2>Items you can afford post tax</h2>";
+
+	    foreach($products as $key => $value){
+	    	$costWithTax = tax_calc($value,$taxRate);
+		    if($costWithTax <= $credit ){
+		    	echo "<p>".$key."</p>"; 
+		    }
+	    }
 
     ?>
   </body>
