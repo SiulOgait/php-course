@@ -26,11 +26,25 @@
 
         echo "<h2>Items you can afford</h2>";
 
-foreach($products as $key => $value){
-  if($value <= $credit ){
-  	echo "<p>".$key."</p>"; 
-  }
-}
+    foreach($products as $key => $value){
+      if($value <= $credit ){
+        echo "<p>".$key."</p>"; 
+      }
+    }
+
+    $amount=800;
+    $taxRate=0.08255599;
+    $addedTax= $amount*$taxRate;  //amount = 800, tax = .0825
+    echo "<p> Tax added ".$addedTax."! Rounded tax is: ".round($addedTax, 2)."</p>";
+      
+      function tax_calc($amount,$tax){
+      $calculate_tax = $amount*$tax;
+      $amount = round($amount+$calculate_tax,3);
+      return $amount; 	
+    }
+    
+     echo tax_calc(750,0.223); 
+     // When you refresh your page you should a value at the bottom of the screen.
 
     ?>
   </body>
